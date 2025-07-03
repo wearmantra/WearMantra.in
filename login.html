@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ZilaaPrint login</title>
+  <title>WearMantra login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     * {
@@ -293,7 +293,7 @@
   <header>
     <div class="navbar">
       <div class="logo">
-        <h1>SPIRIT<span>HERO</span></h1>
+        <h1>Wear<span>mantra.in</span></h1>
       </div>
 
       <div class="hamburger" onclick="toggleMenu()">
@@ -427,7 +427,7 @@
     const password = document.getElementById("regPassword").value;
     const errorBox = document.getElementById("registerError");
 
-    const mobileValid = /^[6-9]\d{9}$/.test(number);
+    const mobileValid = /^[6-9]\d{9}$/.test(number); 
     if (!email.includes("@") || !mobileValid || password.length < 4) {
       errorBox.textContent = "Invalid email, number or password.";
     } else {
