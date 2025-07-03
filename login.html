@@ -1,0 +1,440 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ZilaaPrint login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #f0f0f0;
+    }
+
+    header {
+      background: #003366;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+    }
+
+    .logo h1 {
+      font-size: 30px;
+      color: white;
+      font-weight: 900;
+    }
+
+    .logo span {
+      color: #FDB927;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .bar {
+      height: 3px;
+      width: 25px;
+      background: white;
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: 0.4s;
+    }
+
+    nav {
+      display: flex;
+      gap: 25px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #FDB927;
+      transition: 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #66CCFF;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #003366;
+        flex-direction: column;
+        box-shadow: 0 8px 10px rgba(0,0,0,0.1);
+      }
+
+      nav.show {
+        display: flex;
+      }
+
+      nav a {
+        padding: 15px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* Scrollable Menu Section */
+    .scroll-menu-wrapper {
+      background: white;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .scroll-menu {
+      display: inline-flex;
+      padding: 16px 12px;
+    }
+
+    .scroll-menu a {
+      color: #333;
+      text-decoration: none;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      position: relative;
+      transition: 0.3s;
+    }
+
+    .scroll-menu a:hover {
+      background-color: #f2f2f2;
+      color: #6a1b9a;
+      border-radius: 5px;
+    }
+
+    .scroll-menu a:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 18px;
+      background-color: #ccc;
+    }
+
+    .scroll-menu::-webkit-scrollbar {
+      display: none;
+    }
+
+    .scroll-menu-wrapper {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    @media (max-width: 600px) {
+      .scroll-menu a {
+        font-size: 13px;
+        padding: 8px 12px;
+      }
+    }
+ 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #fafafa;
+     
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: white;
+      border-radius: 8px;
+      padding: 40px;
+      display: flex;
+      gap: 50px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      flex-wrap: wrap;
+    }
+
+    .form-box {
+      flex: 1 1 400px;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin: 15px 0 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #e8f0fe;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      background: #330066;
+      color: white;
+      padding: 12px;
+      border: none;
+      width: 100%;
+      margin-top: 20px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: orange;
+      color: #000;
+    }
+
+    .link-right {
+      text-align: right;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+    }
+  
+  .login-btn {
+    background-color: #2c0066; /* Dark purple */
+    color: white;
+    text-decoration: none;
+    padding: 14px 24px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+
+  .login-btn:hover {
+    background-color: orange;
+    color: #000;
+  }
+
+  @media (max-width: 600px) {
+    .login-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Header / Navbar -->
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <h1>SPIRIT<span>HERO</span></h1>
+      </div>
+
+      <div class="hamburger" onclick="toggleMenu()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+
+      <nav id="navLinks">
+        <a href="#">Find Your Store</a>
+        <a href="#">Free Online Store</a>
+        <a href="#">How It Works</a>
+        <a href="#">Bulk Orders</a>
+        <a href="#">FAQ</a>
+        <a href="#">Design Ideas</a>
+        <a href="#">Contact Us</a>
+      </nav>
+    </div>
+  </header>
+
+
+<center>
+  <!-- Scrollable Menu -->
+  <div class="scroll-menu-wrapper">
+    <div class="scroll-menu">
+      <a href="#">Find Your Store</a>
+      <a href="#">Get a Free Online Store</a>
+      <a href="#">How It Works</a>
+      <a href="#">Bulk Orders</a>
+      <a href="#">FAQ</a>
+      <a href="#">Design Ideas</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </div>
+</center>
+<!-- Login Section Start -->
+<div style="max-width: 1000px; margin: 60px auto; text-align: center; padding: 0 20px;">
+  <hr style="margin-bottom: 25px;">
+  <h2 style="font-size: 26px; font-weight: 500; letter-spacing: 1px;">SELECT LOGIN OPTIONS</h2>
+  <hr style="margin: 25px 0;">
+
+  <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+    <a href="#" class="login-btn">INDIVIDUAL PURCHASES LOGIN</a>
+    <a href="#" class="login-btn">GROUP STORE DASHBOARD LOGIN</a>
+  </div>
+</div>
+
+
+
+<div class="container">
+  <!-- Returning Customers -->
+  <div class="form-box">
+    <h2>RETURNING CUSTOMERS</h2>
+    <form id="loginForm">
+      <label for="loginEmail">Email</label>
+      <input type="email" id="loginEmail" required />
+
+      <label for="loginPassword">Password</label>
+      <input type="password" id="loginPassword" required />
+      <div class="link-right">
+        <a href="#">Forgot your password?</a>
+      </div>
+
+      <div class="error" id="loginError"></div>
+
+      <button type="submit" class="btn">Sign In</button>
+    </form>
+  </div>
+
+  <!-- New Customers -->
+  <div class="form-box">
+    <h2>NEW CUSTOMERS</h2>
+    <form id="registerForm">
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" required />
+
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" required />
+
+      <label for="regEmail">Email</label>
+      <input type="email" id="regEmail" required />
+
+      <label for="regNumber">Mobile Number</label>
+      <input type="text" id="regNumber" required maxlength="10" />
+
+      <label for="regPassword">Password</label>
+      <input type="password" id="regPassword" required />
+
+      <div class="error" id="registerError"></div>
+
+      <button type="submit" class="btn">Sign Up</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Login Section End -->
+
+
+
+</center>
+  <script>
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('show');
+    }
+ 
+  // Login Form Validation
+  document.getElementById("loginForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+    const errorBox = document.getElementById("loginError");
+
+    if (!email.includes("@") || password.length < 4) {
+      errorBox.textContent = "Incorrect email or password.";
+    } else {
+      errorBox.textContent = "";
+      window.location.href = "dashboard.html"; // redirect after login
+    }
+  });
+
+  // Register Form Validation
+  document.getElementById("registerForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const email = document.getElementById("regEmail").value;
+    const number = document.getElementById("regNumber").value;
+    const password = document.getElementById("regPassword").value;
+    const errorBox = document.getElementById("registerError");
+
+    const mobileValid = /^[6-9]\d{9}$/.test(number);
+    if (!email.includes("@") || !mobileValid || password.length < 4) {
+      errorBox.textContent = "Invalid email, number or password.";
+    } else {
+      errorBox.textContent = "";
+      window.location.href = "welcome.html"; // redirect after signup
+    }
+  });
+</script>
+</body>
+</html>
