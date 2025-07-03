@@ -1,0 +1,473 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WearMantra</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #f0f0f0;
+    }
+
+    header {
+      background: #003366;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      flex-wrap: wrap;
+    }
+
+    .logo h1 {
+      font-size: 30px;
+      color: white;
+      font-weight: 900;
+    }
+
+    .logo span {
+      color: #FDB927;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .bar {
+      height: 3px;
+      width: 25px;
+      background: white;
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: 0.4s;
+    }
+
+    nav {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #FDB927;
+      transition: 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #66CCFF;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .auth-buttons a {
+      padding: 6px 14px;
+      border: 2px solid white;
+      border-radius: 5px;
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .auth-buttons a:hover {
+      background: white;
+      color: #003366;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #003366;
+        flex-direction: column;
+        box-shadow: 0 8px 10px rgba(0,0,0,0.1);
+        z-index: 999;
+      }
+
+      nav.show {
+        display: flex;
+      }
+
+      nav a {
+        padding: 15px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .auth-buttons {
+        flex-direction: column;
+        width: 100%;
+        padding: 10px;
+      }
+
+      .auth-buttons a {
+        text-align: center;
+      }
+    }
+
+    .scroll-menu-wrapper {
+      background: white;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .scroll-menu {
+      display: inline-flex;
+      padding: 16px 12px;
+    }
+
+    .scroll-menu a {
+      color: #333;
+      text-decoration: none;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      position: relative;
+      transition: 0.3s;
+    }
+
+    .scroll-menu a:hover {
+      background-color: #f2f2f2;
+      color: #6a1b9a;
+      border-radius: 5px;
+    }
+
+    .scroll-menu a:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 18px;
+      background-color: #ccc;
+    }
+
+    .scroll-menu::-webkit-scrollbar {
+      display: none;
+    }
+
+    .scroll-menu-wrapper {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    @media (max-width: 600px) {
+      .scroll-menu a {
+        font-size: 13px;
+        padding: 8px 12px;
+      }
+    }
+    /* Banner Section */
+  
+
+    .banner {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+
+    .banner img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .banner img {
+        height: auto;
+        object-fit: cover;
+      }
+    }
+
+    .product-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid #e0c6b1;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: 0.3s ease;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      transform: translateY(-4px);
+    }
+
+    .img-container {
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .card img {
+      width: 100%;
+      height: 140px;
+      object-fit: contain;
+      transition: transform 0.4s ease;
+    }
+
+    /* ✅ Hover zoom effect */
+    .card:hover img {
+      transform: scale(1.07);
+    }
+
+    .title {
+      margin: 12px 0 5px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .price {
+      margin: 0;
+      font-size: 15px;
+      color: #222;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: #888;
+      font-size: 13px;
+      margin-right: 6px;
+    }
+
+    .buy-btn {
+      margin-top: 10px;
+      padding: 8px 0;
+      width: 90%;
+      background: #84231a;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .buy-btn:hover {
+      background: #a93b2f;
+    }
+
+    /* ✅ 2 cards on mobile */
+    @media (max-width: 600px) {
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .card img {
+        height: 120px;
+      }
+    }
+
+    /* ✅ 4 cards on laptop/desktop */
+    @media (min-width: 1000px) {
+      .product-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header / Navbar -->
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <h1>Wear<span>Mantra</span></h1>
+      </div>
+
+      <div class="hamburger" onclick="toggleMenu()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+
+      <nav id="navLinks">
+        <a href="C:\zila print\index.2.html">Home</a>
+        <a href="#">About</a>
+        <a href="#">Find Your Store</a>
+        <a href="#">Bulk Orders</a>
+        <a href="#">FAQ</a>
+        <a href="#">Design Ideas</a>
+        <a href="#">Contact Us</a>
+        <div class="auth-buttons">
+          <a href="login.html">Login</a>
+          <a href="login.html">Signup</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+<center>
+    <!-- Scrollable Menu -->
+  <div class="scroll-menu-wrapper">
+    <div class="scroll-menu">
+      <a href="PROGARMING TISHRT.html"> PROGRMING T-SHIRT</a>
+      <a href="#">Get a Free Online Store</a>
+      <a href="#">How It Works</a>
+      <a href="#">Bulk Orders</a>
+      <a href="#">FAQ</a>
+      <a href="#">Design Ideas</a>
+      <a href="#">Contact Us</a>
+    </div>
+    
+  </div>
+  </center>
+  
+
+
+
+  <!-- ✅ Banner Section -->
+  <div class="banner">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgdBio6z_lz16b9XzEP2N3OEzwEQIXPx04KQ&s" alt="Shuddh Swad TheKua Banner">
+  </div>
+
+
+
+
+  <div class="product-grid">
+
+    <!-- Product 1 -->
+    <div class="card">
+      <div class="img-container">
+        <img src="https://www.dudeme.in/cdn/shop/products/Declare-variables-NAVY.jpg?v=1661775148&width=400" alt="Traditional Thekua">
+      </div>
+      <p class="title">Traditional Thekua</p>
+      <p class="price"><span class="old-price">Rs. 599.00</span>Rs. 299.00</p>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="card">
+      <div class="img-container">
+        <img src="https://www.dudeme.in/cdn/shop/products/1st-Rule-NAVY.jpg?v=1661942569&width=400" alt="Jaggery Thekua">
+      </div>
+      <p class="title">Jaggery Thekua</p>
+      <p class="price"><span class="old-price">Rs. 599.00</span>Rs. 299.00</p>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="card">
+      <div class="img-container">
+        <img src="https://www.dudeme.in/cdn/shop/products/Programmer-life-NAVY.jpg?v=1661840058&width=400" alt="Masala Thekua">
+      </div>
+      <p class="title">Masala Thekua</p>
+      <p class="price"><span class="old-price">Rs. 699.00</span>Rs. 349.00</p>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+
+    <!-- Product 4 -->
+    <div class="card">
+      <div class="img-container">
+        <img src="https://www.dudeme.in/cdn/shop/products/While-Alive-eat-sleep-BLACK.jpg?v=1661945011&width=400" alt="Elaichi Thekua">
+      </div>
+      <p class="title">Elaichi Thekua</p>
+      <p class="price"><span class="old-price">Rs. 699.00</span>Rs. 349.00</p>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+
+    <!-- Product 5-->
+    <div class="card">
+      <div class="img-container">
+        <img src="https://www.dudeme.in/cdn/shop/products/While-Alive-eat-sleep-BLACK.jpg?v=1661945011&width=400" alt="Elaichi Thekua">
+      </div>
+      <p class="title">Elaichi Thekua</p>
+      <p class="price"><span class="old-price">Rs. 699.00</span>Rs. 349.00</p>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+<!-- Product 4 -->
+    <div class="card">
+      <div class="img-container">
+        <img src="https://www.dudeme.in/cdn/shop/products/While-Alive-eat-sleep-BLACK.jpg?v=1661945011&width=400" alt="Elaichi Thekua">
+      </div>
+      <p class="title">Elaichi Thekua</p>
+      <p class="price"><span class="old-price">Rs. 699.00</span>Rs. 349.00</p>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+<!-- Product 4 -->
+    <div class="card">
+      <div class="img-container">
+        <img src="https://www.dudeme.in/cdn/shop/products/While-Alive-eat-sleep-BLACK.jpg?v=1661945011&width=400" alt="Elaichi Thekua">
+      </div>
+      <p class="title">Elaichi Thekua</p>
+      <p class="price"><span class="old-price">Rs. 699.00</span>Rs. 349.00</p>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+<!-- Product 4 -->
+    <div class="card">
+      <div class="img-container">
+        <img src="https://www.dudeme.in/cdn/shop/products/While-Alive-eat-sleep-BLACK.jpg?v=1661945011&width=400" alt="Elaichi Thekua">
+      </div>
+      <p class="title">Elaichi Thekua</p>
+      <p class="price"><span class="old-price">Rs. 699.00</span>Rs. 349.00</p>
+      <button class="buy-btn">Buy Now</button>
+    </div>
+
+  </div>
+
+
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('show');
+    }
+  </script>
+
+</body>
+</html>
